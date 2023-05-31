@@ -1,0 +1,7 @@
+import os
+import bait.util.testing
+
+fun test_task_inout() {
+	root := os.dir($FILE)
+    testing.in_out_dir_runner(root, '')
+}
