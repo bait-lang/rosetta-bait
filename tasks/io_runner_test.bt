@@ -3,7 +3,7 @@ import bait.util.testing
 
 fun test_task_inout() {
 	testing.in_out_dir_runner(testing.InOutRunner{
-		root: os.dir($FILE)
-		check_stdout: true
+		root = os.dir($FILE)
+		check_stdout = true
 	})
 }
