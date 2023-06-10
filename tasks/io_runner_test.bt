@@ -2,6 +2,7 @@ import os
 import bait.util.testing
 
 fun test_task_inout() {
+	// TODO update to use new folder structure
 	testing.in_out_dir_runner(testing.InOutRunner{
 		root = os.dir($FILE)
 		check_stdout = true
