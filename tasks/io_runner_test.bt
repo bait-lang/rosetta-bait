@@ -1,9 +1,25 @@
 import os
 import bait.util.testing
 
+const ROOT_DIRS := [
+	'hello_world',
+	// 'loops'
+]
+
+const DIRS := [
+	'100_doors',
+]
+
 fun test_task_inout() {
-	testing.in_out_dir_runner(testing.InOutRunner{
-		root = os.dir($FILE)
+	tasks := os.dir($FILE)
+
+	runner := testing.InOutRunner{
 		check_stdout = true
-	})
+	}
+	for rd in ROOT_DIRS {
+		runner.test_subdirs(os.join_path(tasks, [rd]))
+	}
+	for d in DIRS {
+		runner.test_dir(os.join_path(tasks, [d]))
+	}
 }
