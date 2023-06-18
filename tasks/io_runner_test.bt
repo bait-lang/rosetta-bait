@@ -16,6 +16,18 @@ fun test_task_inout() {
 	runner := testing.InOutRunner{
 		check_stdout = true
 	}
+
+	// JS backend (default)
+	for rd in ROOT_DIRS {
+		runner.test_subdirs(os.join_path(tasks, [rd]))
+	}
+	for d in DIRS {
+		runner.test_dir(os.join_path(tasks, [d]))
+	}
+
+	// C backend
+	runner.cmd_options = '-b c'
+	// TODO set skips
 	for rd in ROOT_DIRS {
 		runner.test_subdirs(os.join_path(tasks, [rd]))
 	}
