@@ -14,33 +14,34 @@ const C_SKIPS := [
 	'100_doors',
 ]
 
-fun test_task_inout() {
+fun run_task_tests(runner testing.InOutRunner) {
 	tasks := os.dir($FILE)
 
+	for rd in ROOT_DIRS {
+		runner.root = os.join_path(tasks, [rd])
+		runner.test_all_in_root()
+	}
+	runner.root = tasks
+	for d in DIRS {
+		runner.test_dir(d)
+	}
+}
+
+fun test_tasks_js() {
 	runner := testing.InOutRunner{
 		check_stdout = true
+		cmd_options = '-b js'
 	}
 
-	// JS backend (default)
-	for rd in ROOT_DIRS {
-		runner.root = os.join_path(tasks, [rd])
-		runner.test_all_in_root()
-	}
-	runner.root = tasks
-	for d in DIRS {
-		runner.test_dir(d)
+	run_task_tests(runner)
+}
+
+fun test_tasks_c() {
+	runner := testing.InOutRunner{
+		check_stdout = true
+		cmd_options = '-b c'
+		skips = C_SKIPS
 	}
 
-	// C backend
-	runner.cmd_options = '-b c'
-	runner.skips = C_SKIPS
-
-	for rd in ROOT_DIRS {
-		runner.root = os.join_path(tasks, [rd])
-		runner.test_all_in_root()
-	}
-	runner.root = tasks
-	for d in DIRS {
-		runner.test_dir(d)
-	}
+	run_task_tests(runner)
 }
