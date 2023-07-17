@@ -14,7 +14,13 @@ const C_SKIPS := [
 	'100_doors',
 ]
 
-fun run_task_tests(runner testing.InOutRunner) {
+fun run_task_tests(opts string, skips []string) {
+	mut runner := testing.InOutRunner{
+		check_stdout = true
+		cmd_options = opts
+		skips = skips
+	}
+
 	tasks := os.dir($FILE)
 
 	for rd in ROOT_DIRS {
@@ -28,20 +34,9 @@ fun run_task_tests(runner testing.InOutRunner) {
 }
 
 fun test_tasks_js() {
-	runner := testing.InOutRunner{
-		check_stdout = true
-		cmd_options = '-b js'
-	}
-
-	run_task_tests(runner)
+	run_task_tests('-b js', []string)
 }
 
 fun test_tasks_c() {
-	runner := testing.InOutRunner{
-		check_stdout = true
-		cmd_options = '-b c'
-		skips = C_SKIPS
-	}
-
-	run_task_tests(runner)
+	run_task_tests('-b c', C_SKIPS)
 }
