@@ -3,7 +3,7 @@ import bait.util.testing
 
 const ROOT_DIRS := [
 	'hello_world',
-	// 'loops'
+	'loops'
 ]
 
 const DIRS := [
