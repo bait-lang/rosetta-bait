@@ -11,12 +11,15 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - uses: tiabeast/setup-bait@v0.1
+      - uses: tiabeast/setup-bait
       - name: Run tests
         run: bait test tasks
