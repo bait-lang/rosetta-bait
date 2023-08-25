@@ -20,6 +20,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - uses: tiabeast/setup-bait
+      - uses: tiabeast/setup-bait@main
       - name: Run tests
         run: bait test tasks
