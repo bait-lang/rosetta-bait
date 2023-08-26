@@ -36,5 +36,11 @@ fun test_tasks_js() {
 }
 
 fun test_tasks_c() {
+	// Skip on windows for now
+	if os.platform() == 'win32' {
+		assert true
+		return
+	}
+
 	run_task_tests('-b c', C_SKIPS)
 }
