@@ -1,0 +1,25 @@
+import os
+
+const ROOT := os.dir($FILE)
+
+// TODO fix syntax highlight fun type in param
+// TODO fix/how to handle fun type with return type void?
+fun check_task_output(task string, check_fun fun(string) bool) {
+	abs_dir := os.join_path(ROOT, [task])
+	res := os.exec('node ${$BAITEXE} --nocolor run ${abs_dir}')
+
+	if res.code != 0 {
+		eprintln('compilation failed: ${res.stderr}')
+		assert false
+		return
+	}
+
+	check_fun(res.stdout)
+}
+
+fun test_99_bottles() {
+	// TODO make this anon fun work
+	check_task_output('99_bottles', fun (s) bool {
+		return
+	})
+}

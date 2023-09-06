@@ -10,8 +10,6 @@ const DIRS := [
 	'100_doors',
 ]
 
-const C_SKIPS := []string
-
 fun run_task_tests(opts string, skips []string) {
 	mut runner := testing.InOutRunner{
 		check_stdout = true
@@ -42,5 +40,5 @@ fun test_tasks_c() {
 		return
 	}
 
-	run_task_tests('-b c', C_SKIPS)
+	run_task_tests('-b c', []string)
 }
