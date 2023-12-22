@@ -10,22 +10,19 @@ const DIRS := [
 	'100_doors',
 ]
 
-const C_SKIPS := []string
-
-fun run_task_tests(opts string, skips []string) {
+fun run_task_tests(opts string) {
 	mut runner := testing.InOutRunner{
 		check_stdout = true
 		cmd_options = opts
-		skips = skips
 	}
 
-	tasks := os.dir($FILE)
+	tasks_dir := os.dir($FILE)
 
 	for rd in ROOT_DIRS {
-		runner.root = os.join_path(tasks, [rd])
+		runner.root = os.join_path(tasks_dir, [rd])
 		runner.test_all_in_root()
 	}
-	runner.root = tasks
+	runner.root = tasks_dir
 	for d in DIRS {
 		runner.test_dir(d)
 	}
@@ -33,7 +30,7 @@ fun run_task_tests(opts string, skips []string) {
 
 fun test_tasks_js() {
 	println('JS backend')
-	run_task_tests('-b js', []string)
+	run_task_tests('-b js')
 }
 
 fun test_tasks_c() {
@@ -44,5 +41,5 @@ fun test_tasks_c() {
 	}
 
 	println('C backend')
-	run_task_tests('-b c', C_SKIPS)
+	run_task_tests('-b c')
 }
