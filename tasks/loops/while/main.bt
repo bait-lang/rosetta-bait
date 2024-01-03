@@ -1,8 +1,9 @@
 fun main() {
 	mut i := 1024
+
 	// In Bait, `while` loops are replaced by `for` loops with a single condition
 	for i > 0 {
 		println(i)
-		i = i / 2
+		i /= 2
 	}
 }
