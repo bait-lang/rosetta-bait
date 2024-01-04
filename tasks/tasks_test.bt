@@ -34,12 +34,12 @@ fun test_tasks_js() {
 }
 
 fun test_tasks_c() {
-	// Skip on windows for now
+	println('C backend')
+
 	if os.platform() == 'win32' {
-		assert true
+		run_task_tests('-b c -cc gcc')
 		return
 	}
 
-	println('C backend')
 	run_task_tests('-b c')
 }
