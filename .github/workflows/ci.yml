@@ -22,4 +22,4 @@ jobs:
           node-version: '16'
       - uses: tiabeast/setup-bait@main
       - name: Run tests
-        run: bait test tasks
+        run: bait test .

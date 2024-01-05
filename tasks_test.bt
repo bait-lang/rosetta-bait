@@ -1,14 +1,8 @@
 import os
 import bait.util.testing
 
-const ROOT_DIRS := [
-	'hello_world',
-	'loops'
-]
-
-const DIRS := [
-	'100_doors',
-]
+const TASKS_DIR := os.join_path(os.dir($FILE), ['tasks'])
+const ROOT_DIRS := os.ls(TASKS_DIR)
 
 fun run_task_tests(opts string) {
 	mut runner := testing.InOutRunner{
@@ -16,15 +10,9 @@ fun run_task_tests(opts string) {
 		cmd_options = opts
 	}
 
-	tasks_dir := os.dir($FILE)
-
 	for rd in ROOT_DIRS {
-		runner.root = os.join_path(tasks_dir, [rd])
+		runner.root = os.join_path(TASKS_DIR, [rd])
 		runner.test_all_in_root()
-	}
-	runner.root = tasks_dir
-	for d in DIRS {
-		runner.test_dir(d)
 	}
 }
 
