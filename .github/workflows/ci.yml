@@ -10,16 +10,29 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+  linux:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: 18.x
       - uses: bait-lang/setup-bait@main
-      - name: Run tests
-        run: bait test tasks_test.bt
+
+      - name: Run tests (JS backend)
+        run: bait test tasks_test.bt -b js
+
+      - name: Run tests (C backend)
+        run: bait test tasks_test.bt -b c
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - uses: bait-lang/setup-bait@main
+
+      - name: Run tests (JS backend)
+        run: bait test tasks_test.bt -b js
