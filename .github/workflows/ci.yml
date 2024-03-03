@@ -19,10 +19,7 @@ jobs:
           node-version: 18.x
       - uses: bait-lang/setup-bait@main
 
-      - name: Run tests (JS backend)
-        run: bait test tasks_test.bt -b js
-
-      - name: Run tests (C backend)
+      - name: Run tests
         run: bait test tasks_test.bt -b c
 
   windows:
@@ -34,5 +31,5 @@ jobs:
           node-version: 18.x
       - uses: bait-lang/setup-bait@main
 
-      - name: Run tests (JS backend)
+      - name: Run tests
         run: bait test tasks_test.bt -b js
