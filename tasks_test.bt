@@ -24,10 +24,9 @@ fun test_tasks_js() {
 fun test_tasks_c() {
 	println('C backend')
 
-	if os.platform() == 'win32' {
+	$if WINDOWS {
 		run_task_tests('-b c -cc gcc')
-		return
+	} $else {
+		run_task_tests('-b c')
 	}
-
-	run_task_tests('-b c')
 }
