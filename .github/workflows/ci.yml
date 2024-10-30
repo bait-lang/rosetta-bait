@@ -1,13 +1,13 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
   pull_request:
   schedule:
-    # Run every Monday
-    - cron: '0 0 * * 1'
+    - cron: '0 0 * * 1' # Weekly (Mo)
 
 jobs:
   linux:
