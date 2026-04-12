@@ -3,8 +3,11 @@
 fun pascals_triangle(row_nr i32) [][]i32 {
 	mut rows := [][]i32
 
-	// Iterate over all rows
-	for r := 0; r < row_nr; r += 1 {
+	// First row is always [1]
+	rows.push([1])
+
+	// Iterate over remaining rows
+	for r := 1; r < row_nr; r += 1 {
 		// Store the row above the current one
 		mut above := rows[r - 1]
 
