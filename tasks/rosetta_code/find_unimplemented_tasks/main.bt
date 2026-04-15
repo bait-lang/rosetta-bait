@@ -1,0 +1,68 @@
+import os
+
+const DEFAULT_LANG := "Bait"
+const TASKS_CATEGORY := "Programming_Tasks"
+const BASE_QUERY := "http://rosettacode.org/mw/api.php?action=query&format=xml&list=categorymembers&cmlimit=100&cmtitle=Category:"
+
+struct Page {
+	titles []string
+	next string
+}
+
+fun fetch_page(url string) Page {
+	// TODO resp := http.get(url)
+
+	// TODO ...
+
+	return Page{
+		titles = []
+		next = ""
+	}
+}
+
+fun fetch_all(category string) []string {
+	query := BASE_QUERY + category
+
+	mut url := query
+	mut results := []string{}
+
+	for true {
+		page := fetch_page(url)
+		results.push_many(page.titles)
+
+		if page.next == "" {
+			break
+		}
+
+		url = query + "&cmcontinue=" + page.next
+	}
+
+	return results
+}
+
+fun main () {
+	// Use language from first CLI argument if provided, otherwise use default
+	lang := if os.user_args().length == 0 {
+		DEFAULT_LANG
+	} else {
+		os.user_args()[0]
+	}
+
+	// Get implemented tasks and convert to a set
+	implemented_tasks := fetch_all(lang)
+
+	// Note: Set is probably faster than an Array.
+	// However this was not verified!
+	mut lang_set := map[string]bool
+	for task in implemented_tasks {
+		lang_set[task] = true
+	}
+
+	// Get all tasks and print missing ones
+	all_tasks := fetch_all(TASKS_CATEGORY)
+	for task in all_tasks {
+		if not lang_set.contains(task) {
+			println(task)
+		}
+	}
+}
